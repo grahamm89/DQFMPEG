@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PEG Setting Tool</title>
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0ea5e9"/>
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Minimal iOS PWA install support
+    if (navigator.standalone) {
+      document.documentElement.classList.add('standalone');
+    }
+  </script>
+</head>
+<body>
+  <header class="app-header">
+    <h1>PEG Setting Tool</h1>
+    <button id="btnInstall" class="secondary" hidden>Install</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Find Recommended PEG Setting</h2>
+      <div class="grid">
+        <label>
+          <span>Product</span>
+          <select id="product"></select>
+        </label>
+
+        <label>
+          <span>Application</span>
+          <select id="application">
+            <option value="trigger">Trigger spray</option>
+            <option value="bucket">Bucket / Scrubber drier</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Pressure</span>
+          <select id="pressure">
+            <option value="1.5">1.5 bar</option>
+            <option value="2.5">2.5 bar</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Gap</span>
+          <select id="gap">
+            <option value="A">A-Gap</option>
+            <option value="R">R-Gap</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="btnShow">Show Setting</button>
+        <button id="btnRefreshData" class="secondary">Refresh data</button>
+      </div>
+
+      <div id="result" class="result" aria-live="polite">
+        <div class="peg">
+          <span class="label">Recommended PEG:</span>
+          <span id="pegValue" class="value">—</span>
+        </div>
+        <p id="note" class="note"></p>
+      </div>
+    </section>
+
+    <section class="card">
+      <details open>
+        <summary>Matrix preview</summary>
+        <div id="matrix"></div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>Offline-ready PWA</span>
+    <button id="btnCheckUpdates" class="linklike">Check for app update</button>
+    <span id="updateStatus" class="muted"></span>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

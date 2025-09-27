@@ -1,0 +1,96 @@
+{
+  "products": [
+    {
+      "name": "Suma Star Plus D1",
+      "trigger": {
+        "1.5": {
+          "A": null,
+          "R": null
+        },
+        "2.5": {
+          "A": null,
+          "R": null
+        }
+      },
+      "bucket": {
+        "1.5": {
+          "A": "J",
+          "R": "I"
+        },
+        "2.5": {
+          "A": "K",
+          "R": "K"
+        }
+      }
+    },
+    {
+      "name": "Suma Bac D10",
+      "trigger": {
+        "1.5": {
+          "A": "E",
+          "R": "D"
+        },
+        "2.5": {
+          "A": "F",
+          "R": "E"
+        }
+      },
+      "bucket": {
+        "1.5": {
+          "A": null,
+          "R": null
+        },
+        "2.5": {
+          "A": null,
+          "R": null
+        }
+      }
+    },
+    {
+      "name": "Suma Multi D2",
+      "trigger": {
+        "1.5": {
+          "A": "F",
+          "R": "F"
+        },
+        "2.5": {
+          "A": "G",
+          "R": "D"
+        }
+      },
+      "bucket": {
+        "1.5": {
+          "A": "H",
+          "R": "G"
+        },
+        "2.5": {
+          "A": "I",
+          "R": "I"
+        }
+      }
+    },
+    {
+      "name": "Suma San D10.1",
+      "trigger": {
+        "1.5": {
+          "A": "H",
+          "R": "G"
+        },
+        "2.5": {
+          "A": "I",
+          "R": "H"
+        }
+      },
+      "bucket": {
+        "1.5": {
+          "A": null,
+          "R": null
+        },
+        "2.5": {
+          "A": null,
+          "R": null
+        }
+      }
+    }
+  ]
+}
