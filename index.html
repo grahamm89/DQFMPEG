@@ -9,11 +9,6 @@
   <link rel="icon" href="icons/icon-192.png" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <link rel="stylesheet" href="styles.css" />
-  <script>
-    if (navigator.standalone) {
-      document.documentElement.classList.add('standalone');
-    }
-  </script>
 </head>
 <body>
   <header class="app-header">
@@ -22,22 +17,19 @@
   </header>
 
   <main class="container">
-    <section class="card" id="sec1">
-      <div class="card-head">
-        <h2 id="label1">Section 1 – PEG Matrix</h2>
-        <div class="card-actions">
-          <button id="btnRefreshData" class="secondary">Refresh data</button>
-        </div>
-      </div>
+
+    <!-- SECTION 1: data.json -->
+    <section class="card" id="section1">
+      <h2>Section 1 — Find Recommended PEG (data.json)</h2>
       <div class="grid">
         <label>
           <span>Product</span>
-          <select id="product1"></select>
+          <select id="product"></select>
         </label>
 
         <label>
           <span>Application</span>
-          <select id="application1">
+          <select id="application">
             <option value="trigger">Trigger spray</option>
             <option value="bucket">Bucket / Scrubber drier</option>
           </select>
@@ -45,7 +37,7 @@
 
         <label>
           <span>Pressure</span>
-          <select id="pressure1">
+          <select id="pressure">
             <option value="1.5">1.5 bar</option>
             <option value="2.5">2.5 bar</option>
           </select>
@@ -53,7 +45,7 @@
 
         <label>
           <span>Gap</span>
-          <select id="gap1">
+          <select id="gap">
             <option value="A">A-Gap</option>
             <option value="R">R-Gap</option>
           </select>
@@ -61,80 +53,29 @@
       </div>
 
       <div class="actions">
-        <button id="btnShow1">Show Setting</button>
+        <button id="btnShow">Show Setting</button>
+        <button id="btnRefreshData" class="secondary">Refresh data</button>
       </div>
 
-      <div class="result" aria-live="polite">
+      <div id="result" class="result" aria-live="polite">
         <div class="peg">
           <span class="label">Recommended PEG:</span>
-          <span id="pegValue1" class="value">—</span>
+          <span id="pegValue" class="value">—</span>
         </div>
-        <p id="note1" class="note"></p>
+        <p id="note" class="note"></p>
       </div>
-
-      <details open>
-        <summary>Matrix preview</summary>
-        <div id="matrix1"></div>
-      </details>
     </section>
 
-    <section class="card" id="sec2">
-      <div class="card-head">
-        <h2 id="label2">Section 2 – PEG Matrix</h2>
-      </div>
-      <div class="grid">
-        <label>
-          <span>Product</span>
-          <select id="product2"></select>
-        </label>
-
-        <label>
-          <span>Application</span>
-          <select id="application2">
-            <option value="trigger">Trigger spray</option>
-            <option value="bucket">Bucket / Scrubber drier</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Pressure</span>
-          <select id="pressure2">
-            <option value="1.5">1.5 bar</option>
-            <option value="2.5">2.5 bar</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Gap</span>
-          <select id="gap2">
-            <option value="A">A-Gap</option>
-            <option value="R">R-Gap</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="actions">
-        <button id="btnShow2">Show Setting</button>
-      </div>
-
-      <div class="result" aria-live="polite">
-        <div class="peg">
-          <span class="label">Recommended PEG:</span>
-          <span id="pegValue2" class="value">—</span>
-        </div>
-        <p id="note2" class="note"></p>
-      </div>
-
-      <details open>
-        <summary>Matrix preview</summary>
-        <div id="matrix2"></div>
-      </details>
-    </section>
-
-    
     <section class="card">
-      <h2>Second Dataset: Dilution vs Pressure</h2>
-      <p class="muted">This section uses <code>data2.json</code> with dilutions (10% / 5%) and pressures (1.5 / 2.5 bar).</p>
+      <details open>
+        <summary>Matrix preview (Section 1)</summary>
+        <div id="matrix"></div>
+      </details>
+    </section>
+
+    <!-- SECTION 2: data2.json -->
+    <section class="card" id="section2">
+      <h2>Section 2 — Dilution vs Pressure (data2.json)</h2>
       <div class="grid">
         <label>
           <span>Product</span>
@@ -174,16 +115,14 @@
 
     <section class="card">
       <details>
-        <summary>Matrix preview (Second Dataset)</summary>
+        <summary>Matrix preview (Section 2)</summary>
         <div id="matrix2"></div>
       </details>
     </section>
 
-
-
-    <section class="card">
-      <h2>Third Dataset: App (Trigger/Bucket) vs Gap (A/R)</h2>
-      <p class="muted">This section uses <code>data3.json</code> (no pressure). Choose product, application, and gap.</p>
+    <!-- SECTION 3: data3.json -->
+    <section class="card" id="section3">
+      <h2>Section 3 — Application vs Gap (data3.json)</h2>
       <div class="grid">
         <label>
           <span>Product</span>
@@ -223,7 +162,7 @@
 
     <section class="card">
       <details>
-        <summary>Matrix preview (Third Dataset)</summary>
+        <summary>Matrix preview (Section 3)</summary>
         <div id="matrix3"></div>
       </details>
     </section>
@@ -236,6 +175,6 @@
     <span id="updateStatus" class="muted"></span>
   </footer>
 
-  <script src="app-dual.js" type="module"></script>
+  <script src="app.js" type="module"></script>
 </body>
 </html>
