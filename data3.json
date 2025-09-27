@@ -1,0 +1,70 @@
+{
+  "products": [
+    {
+      "name": "Sure Cleaner Disinfectant",
+      "trigger": {
+        "A": "L",
+        "R": "G"
+      },
+      "bucket": {
+        "A": null,
+        "R": null
+      }
+    },
+    {
+      "name": "Sure Interior Cleaner",
+      "trigger": {
+        "A": "L",
+        "R": "J"
+      },
+      "bucket": {
+        "A": null,
+        "R": null
+      }
+    },
+    {
+      "name": "Sure Washroom Descaler",
+      "trigger": {
+        "A": "L",
+        "R": "K"
+      },
+      "bucket": {
+        "A": null,
+        "R": null
+      }
+    },
+    {
+      "name": "Sure Washroom Cleaner",
+      "trigger": {
+        "A": "L",
+        "R": "J"
+      },
+      "bucket": {
+        "A": "0",
+        "R": "0"
+      }
+    },
+    {
+      "name": "Sure Floor Cleaner",
+      "trigger": {
+        "A": null,
+        "R": null
+      },
+      "bucket": {
+        "A": "0",
+        "R": "0"
+      }
+    },
+    {
+      "name": "Sure Cleaner Degreaser",
+      "trigger": {
+        "A": "M",
+        "R": "K"
+      },
+      "bucket": {
+        "A": "L",
+        "R": "K"
+      }
+    }
+  ]
+}

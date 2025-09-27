@@ -182,3 +182,252 @@ els.btnCheckUpdates.addEventListener('click', async () => {
 });
 
 init();
+
+
+
+// ===== SECOND DATASET (data2.json) — dilution vs pressure =====
+const DATA_URL_2 = 'data2.json';
+const els2 = {
+  product: document.getElementById('product2'),
+  dilution: document.getElementById('dilution2'),
+  pressure: document.getElementById('pressure2'),
+  btnShow: document.getElementById('btnShow2'),
+  pegValue: document.getElementById('pegValue2'),
+  note: document.getElementById('note2'),
+  matrix: document.getElementById('matrix2'),
+  btnRefreshData: document.getElementById('btnRefreshData2')
+};
+
+async function loadData2({noCache=false} = {}) {
+  const url = noCache ? `${DATA_URL_2}?v=${Date.now()}` : DATA_URL_2;
+  const res = await fetch(url, {cache: noCache ? 'no-store' : 'default'});
+  if (!res.ok) throw new Error('Failed to load data2');
+  return res.json();
+}
+
+let DATA2 = null;
+
+function buildProductOptions2() {
+  els2.product.innerHTML = '';
+  if (!DATA2 || !Array.isArray(DATA2.products) || DATA2.products.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = '— No products in data2.json —';
+    els2.product.appendChild(opt);
+    return;
+  }
+  DATA2.products.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.name;
+    opt.textContent = p.name;
+    els2.product.appendChild(opt);
+  });
+}
+
+function getPegValue2(productName, dilution, pressure) {
+  if (!DATA2 || !DATA2.products) return null;
+  const p = DATA2.products.find(x => x.name === productName);
+  if (!p || !p.dilution) return null;
+  const d = p.dilution[dilution];
+  if (!d) return null;
+  const val = d[pressure];
+  return (val === null || val === undefined || val === '') ? null : val;
+}
+
+function renderMatrixFor2(productName) {
+  if (!DATA2 || !Array.isArray(DATA2.products) || DATA2.products.length === 0) {
+    els2.matrix.innerHTML = '<p class="muted">No products in data2.json.</p>';
+    return;
+  }
+  const p = DATA2.products.find(x => x.name === productName);
+  if (!p || !p.dilution) { els2.matrix.innerHTML = ''; return; }
+  const table = document.createElement('table');
+  const cell = (dil, pres) => {
+    const v = (p.dilution?.[dil] ?? {})[pres];
+    return `<td>${v ?? '—'}</td>`;
+  };
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th> </th>
+        <th colspan="2">Pressure</th>
+      </tr>
+      <tr>
+        <th>Dilution</th>
+        <th>1.5 bar</th>
+        <th>2.5 bar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>10%</td>
+        ${cell('10','1.5')}
+        ${cell('10','2.5')}
+      </tr>
+      <tr>
+        <td>5%</td>
+        ${cell('5','1.5')}
+        ${cell('5','2.5')}
+      </tr>
+    </tbody>
+  `;
+  els2.matrix.replaceChildren(table);
+}
+
+function showResult2() {
+  const product = els2.product.value;
+  const dilution = els2.dilution.value;
+  const pressure = els2.pressure.value;
+  const value = getPegValue2(product, dilution, pressure);
+  els2.pegValue.textContent = value ?? '—';
+  els2.note.textContent = value ? '' : 'No setting available for this combination in the second dataset.';
+  renderMatrixFor2(product);
+}
+
+async function init2() {
+  try {
+    DATA2 = await loadData2();
+  } catch (e) {
+    console.warn('Network-first failed for data2, retrying from cache...', e);
+    DATA2 = await loadData2({noCache:false}).catch(() => null);
+  }
+  buildProductOptions2();
+  showResult2();
+}
+
+els2.btnShow.addEventListener('click', showResult2);
+['product2','dilution2','pressure2'].forEach(id => {
+  document.getElementById(id).addEventListener('change', showResult2);
+});
+els2.btnRefreshData.addEventListener('click', async () => {
+  try {
+    DATA2 = await loadData2({noCache:true});
+    buildProductOptions2();
+    showResult2();
+  } catch (e) {
+    els2.note.textContent = 'Failed to refresh second dataset.';
+  }
+});
+
+init2();
+
+
+// ===== THIRD DATASET (data3.json) — application vs gap (no pressure) =====
+const DATA_URL_3 = 'data3.json';
+const els3 = {
+  product: document.getElementById('product3'),
+  application: document.getElementById('application3'),
+  gap: document.getElementById('gap3'),
+  btnShow: document.getElementById('btnShow3'),
+  pegValue: document.getElementById('pegValue3'),
+  note: document.getElementById('note3'),
+  matrix: document.getElementById('matrix3'),
+  btnRefreshData: document.getElementById('btnRefreshData3')
+};
+
+async function loadData3({noCache=false} = {}) {
+  const url = noCache ? `${DATA_URL_3}?v=${Date.now()}` : DATA_URL_3;
+  const res = await fetch(url, {cache: noCache ? 'no-store' : 'default'});
+  if (!res.ok) throw new Error('Failed to load data3');
+  return res.json();
+}
+
+let DATA3 = null;
+
+function buildProductOptions3() {
+  els3.product.innerHTML = '';
+  if (!DATA3 || !Array.isArray(DATA3.products) || DATA3.products.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.textContent = '— No products in data3.json —';
+    els3.product.appendChild(opt);
+    return;
+  }
+  DATA3.products.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.name;
+    opt.textContent = p.name;
+    els3.product.appendChild(opt);
+  });
+}
+
+function getPegValue3(productName, application, gap) {
+  if (!DATA3 || !DATA3.products) return null;
+  const p = DATA3.products.find(x => x.name === productName);
+  if (!p || !p[application]) return null;
+  const val = p[application][gap];
+  return (val === null || val === undefined || val === '') ? null : val;
+}
+
+function renderMatrixFor3(productName) {
+  if (!DATA3 || !Array.isArray(DATA3.products) || DATA3.products.length === 0) {
+    els3.matrix.innerHTML = '<p class="muted">No products in data3.json.</p>';
+    return;
+  }
+  const p = DATA3.products.find(x => x.name === productName);
+  if (!p) { els3.matrix.innerHTML = ''; return; }
+  const cell = (app, gap) => {
+    const v = (p?.[app] ?? {})[gap];
+    return `<td>${v ?? '—'}</td>`;
+  };
+  const table = document.createElement('table');
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Application</th>
+        <th>A-Gap</th>
+        <th>R-Gap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Trigger spray</td>
+        ${cell('trigger','A')}
+        ${cell('trigger','R')}
+      </tr>
+      <tr>
+        <td>Bucket / Scrubber drier</td>
+        ${cell('bucket','A')}
+        ${cell('bucket','R')}
+      </tr>
+    </tbody>
+  `;
+  els3.matrix.replaceChildren(table);
+}
+
+function showResult3() {
+  const product = els3.product.value;
+  const application = els3.application.value;
+  const gap = els3.gap.value;
+  const value = getPegValue3(product, application, gap);
+  els3.pegValue.textContent = value ?? '—';
+  els3.note.textContent = value ? '' : 'No setting available for this combination in the third dataset.';
+  renderMatrixFor3(product);
+}
+
+async function init3() {
+  try {
+    DATA3 = await loadData3();
+  } catch (e) {
+    console.warn('Network-first failed for data3, retrying from cache...', e);
+    DATA3 = await loadData3({noCache:false}).catch(() => null);
+  }
+  buildProductOptions3();
+  showResult3();
+}
+
+els3.btnShow.addEventListener('click', showResult3);
+['product3','application3','gap3'].forEach(id => {
+  document.getElementById(id).addEventListener('change', showResult3);
+});
+els3.btnRefreshData.addEventListener('click', async () => {
+  try {
+    DATA3 = await loadData3({noCache:true});
+    buildProductOptions3();
+    showResult3();
+  } catch (e) {
+    els3.note.textContent = 'Failed to refresh third dataset.';
+  }
+});
+
+init3();

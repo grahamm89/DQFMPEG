@@ -1,13 +1,15 @@
 /* Simple PWA Service Worker with update-on-refresh and network-first for data.json */
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.1.0';
 const APP_CACHE = `peg-tool-${VERSION}`;
 const CORE_ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js',
+  './app-dual.js',
   './manifest.json',
   './data.json',
+  './data2.json',
+  './data3.json',
   './icons/icon-192.png',
   './icons/icon-512.png'
 ];
@@ -32,7 +34,7 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-  if (url.pathname.endsWith('/data.json') || url.pathname.endsWith('data.json')) {
+  if (url.pathname.endsWith('/data.json') || url.pathname.endsWith('data.json') || url.pathname.endsWith('/data2.json') || url.pathname.endsWith('data2.json') || url.pathname.endsWith('/data3.json') || url.pathname.endsWith('data3.json')) {
     event.respondWith(networkFirst(request));
   } else {
     event.respondWith(cacheFirst(request));

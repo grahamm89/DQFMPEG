@@ -1,7 +1,7 @@
 {
   "name": "PEG Setting Tool",
   "short_name": "PEG Tool",
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#0b1020",
   "theme_color": "#0ea5e9",
@@ -16,5 +16,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "scope": "./"
 }
